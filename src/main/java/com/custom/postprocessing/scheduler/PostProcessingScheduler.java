@@ -15,6 +15,7 @@ import static com.custom.postprocessing.constant.PostProcessingConstant.OUTPUT_D
 import static com.custom.postprocessing.constant.PostProcessingConstant.PCL_EXTENSION;
 import static com.custom.postprocessing.constant.PostProcessingConstant.PDF_EXTENSION;
 import static com.custom.postprocessing.constant.PostProcessingConstant.PRINT_DIRECTORY;
+import static com.custom.postprocessing.constant.PostProcessingConstant.PRINT_SUB_DIRECTORY;
 import static com.custom.postprocessing.constant.PostProcessingConstant.PROCESS_DIRECTORY;
 import static com.custom.postprocessing.constant.PostProcessingConstant.ROOT_DIRECTORY;
 import static com.custom.postprocessing.constant.PostProcessingConstant.SPACE_VALUE;
@@ -150,10 +151,10 @@ public class PostProcessingScheduler {
 		try {
 			final CloudBlobContainer container = containerInfo();
 			String transitTargetDirectory = OUTPUT_DIRECTORY + TRANSIT_DIRECTORY + "/" + currentDate() + "-"
-					+ PROCESS_DIRECTORY + "/" + currentDateTime + "/";
+					+ PROCESS_DIRECTORY + "/" + currentDateTime + PRINT_SUB_DIRECTORY + "/";
 			if (moveFileToTargetDirectory(OUTPUT_DIRECTORY + PRINT_DIRECTORY, transitTargetDirectory)) {
 				CloudBlobDirectory printDirectory = getDirectoryName(container, OUTPUT_DIRECTORY, TRANSIT_DIRECTORY
-						+ "/" + currentDate() + "-" + PROCESS_DIRECTORY + "/" + currentDateTime + "/");
+						+ "/" + currentDate() + "-" + PROCESS_DIRECTORY + "/" + currentDateTime + PRINT_SUB_DIRECTORY + "/");
 				statusMessage = processMetaDataInputFile(printDirectory, currentDateTime);
 				String logFile = LOG_FILE + currentDate() + ".log";
 				copyFileToTargetDirectory(logFile, ROOT_DIRECTORY, LOG_DIRECTORY);
@@ -295,7 +296,7 @@ public class PostProcessingScheduler {
 				Collections.sort(fileNameList);
 				CloudBlobDirectory transitDirectory = getDirectoryName(container,
 						OUTPUT_DIRECTORY + TRANSIT_DIRECTORY + "/",
-						currentDate() + "-" + PROCESS_DIRECTORY + "/" + currentDate + "/");
+						currentDate() + "-" + PROCESS_DIRECTORY + "/" + currentDate + PRINT_SUB_DIRECTORY + "/");
 				for (String fileName : fileNameList) {
 					File file = new File(fileName);
 					CloudBlockBlob blob = transitDirectory.getBlockBlobReference(fileName);
