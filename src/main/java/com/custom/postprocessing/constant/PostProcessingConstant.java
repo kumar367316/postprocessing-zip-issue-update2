@@ -9,6 +9,7 @@ public class PostProcessingConstant {
 
 	public static final String TRANSIT_DIRECTORY = "transit";
 	public static final String PRINT_DIRECTORY = "print/";
+	public static final String PRINT_SUB_DIRECTORY = "-print";
 	public static final String ARCHIVE_DIRECTORY = "archive/";
 	public static final String ARCHIVE_VALUE = "archive";
 	public static final String BANNER_DIRECTORY = "banner/";
