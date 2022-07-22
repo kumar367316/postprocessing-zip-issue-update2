@@ -81,6 +81,10 @@ public class EmailUtility {
 	@Value("${mail.smtp.auth.value}")
 	private String authValue;
 	
+	@Value("${status.message}")
+	private String statusMessage;
+	
+	
 	public MailResponse sendEmail(MailRequest request, Map<String, Object> model, String currentDate) {
 		MailResponse response = new MailResponse();
 		try {
@@ -95,6 +99,7 @@ public class EmailUtility {
 			message.setFrom(new InternetAddress(mailForm));
 			message.setRecipient(RecipientType.TO, new InternetAddress(mailTo));
 			message.setSubject(subject);
+			message.setText(statusMessage, "UTF-8");
 			File documentTxtFile = addAttachment(currentDate, request.getFileNames());
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setFileName(documentTxtFile.getName());
